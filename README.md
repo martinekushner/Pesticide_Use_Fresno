@@ -275,8 +275,50 @@ pur_gdf2.head()
     </tr>
   </tbody>
 </table>
-</div>
 
+
+```python
+
+
+fig, ax = plt.subplots(figsize=(10, 10))
+
+#normalize
+min_value = pur_centroids['AMOUNT_SQM'].min()
+max_value = pur_centroids['AMOUNT_SQM'].max()
+pur_centroids['normalized_size'] = (pur_centroids['AMOUNT_SQM'] - min_value) / (max_value - min_value)
+
+# Scale the normalized values
+desired_min_size = 1
+desired_max_size = 15
+pur_centroids['marker_size'] = pur_centroids['normalized_size'] * (desired_max_size - desired_min_size) + desired_min_size
+
+# Plot the primary shapefile
+pur_centroids.plot(ax=ax,  markersize=pur_centroids['marker_size'], color='orange', edgecolor='yellow', linewidth=0.1, marker='s', label='Pesticide Application', legend=True)
+
+# Plot townships and schools
+fresno_gdf.plot(ax=ax, color='none', edgecolor='grey', linewidth=0.2)
+
+public_fresno.plot(ax=ax, markersize=2.5, color='darkturquoise', edgecolor='darkgrey', linewidth=0.1, label='Public Schools', legend=True)
+
+private_fresno.plot(ax=ax, markersize=2.5, color='aquamarine', edgecolor='darkgrey', linewidth=0.1, label='Private Schools', legend=True)
+
+# Set plot title and labels
+ax.set_title('Locations of Pesticide Applications and Schools in Fresno, CA (2021)')
+
+#add basemap
+ctx.add_basemap(ax,  source=cx.providers.CartoDB.Positron)
+
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(handles, labels)
+
+ax.set_xticks([])
+ax.set_yticks([])
+ax.set_xlabel('')
+ax.set_ylabel('')
+
+# Show the plot
+plt.show()
+```
 
 ![png](output_32_0.png)
     
