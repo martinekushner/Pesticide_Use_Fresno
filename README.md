@@ -9,7 +9,8 @@ Exposure to pesticides through the air has been linked to a number of serious he
 
 Over 500,000 children in California attend schools located near hazardous pesticide applications. Latinx school children are 91% more likely to attend one of the most impacted schools compared to their white peers. This analysis uses the Department of Pesticide Regulation’s 2021 Pesticide Use Reporting (PUR) data set and the Deartment of Education’s school locations to show the proximity between the application of dangerous pesticides and schools. Children are especially vulnerable to the health impacts of pesticides.  
 
-First, I converted the units to square miles to normalize the size of the pesticide applications and plotted them within 1 sq mile townships. 
+First, I converted the units to square miles to normalize the size of the pesticide applications and plotted them within 1 sq mile townships, and found the centroid points of each 1 square mile township section. I scaled the centroid markers based on the square mileage and layered them with the location of public and private schools in fresno to show  proximity. 
+ 
 
 ```python
 def convert_to_sqmiles(row):
@@ -37,8 +38,14 @@ def convert_to_sqmiles(row):
 # Apply the conversion function to create the new column
 pur_gdf["AMOUNT_SQMILES"] = pur_gdf.apply(convert_to_sqmiles, axis=1)
 
-# Print the GeoDataFrame with the new column
-print(pur_gdf)
+```
+
+```python
+
+import pandas as pd
+pd.set_option('display.max_columns', None)
+pur_gdf2['centroid'] = pur_gdf2['geometry'].centroid
+pur_gdf2.head()
 ```
 <table border="1" class="dataframe">
   <thead>
@@ -73,186 +80,202 @@ print(pur_gdf)
       <th>AMOUNT_TRE</th>
       <th>UNIT_TREAT</th>
       <th>AERIAL_GRO</th>
+      <th>AMOUNT_SQM</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
       <th>geometry</th>
-      <th>AMOUNT_SQMILES</th>
+      <th>centroid</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
+      <th>1287</th>
       <td>10</td>
-      <td>M04S</td>
-      <td>27E</td>
-      <td>20</td>
-      <td>LAHONTAN</td>
-      <td>M</td>
-      <td>04S</td>
-      <td>M04S27E20</td>
-      <td>M04S27E</td>
-      <td>10M04S27E20</td>
-      <td>6</td>
-      <td>10M04S27E</td>
-      <td>10</td>
-      <td>Fresno</td>
-      <td>Fresno County</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>POLYGON ((86163.850 -47413.974, 86191.328 -474...</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>10</td>
-      <td>M04S</td>
-      <td>27E</td>
-      <td>19</td>
+      <td>M10S</td>
+      <td>13E</td>
+      <td>22</td>
       <td>CENTRAL VALLEY</td>
       <td>M</td>
-      <td>04S</td>
-      <td>M04S27E19</td>
-      <td>M04S27E</td>
-      <td>10M04S27E19</td>
+      <td>10S</td>
+      <td>M10S13E22</td>
+      <td>M10S13E</td>
+      <td>10M10S13E22</td>
       <td>5</td>
-      <td>10M04S27E</td>
+      <td>10M10S13E</td>
       <td>10</td>
       <td>Fresno</td>
       <td>Fresno County</td>
       <td>None</td>
       <td>None</td>
+      <td>2021.0</td>
+      <td>15-JUN-21</td>
+      <td>FRESNO</td>
+      <td>10M10S13E22</td>
+      <td>COTTON, GENERAL</td>
+      <td>AMIGO</td>
+      <td>13.3836</td>
+      <td>None</td>
       <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>POLYGON ((85698.772 -47889.337, 85702.950 -480...</td>
-      <td>NaN</td>
+      <td>14.0</td>
+      <td>A</td>
+      <td>G</td>
+      <td>0.021875</td>
+      <td>-108134.36885</td>
+      <td>-48198.642574</td>
+      <td>POLYGON ((-48165.756 -107898.621, -48107.770 -...</td>
+      <td>POINT (-48148.384 -108218.520)</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>1288</th>
       <td>10</td>
-      <td>M04S</td>
-      <td>27E</td>
-      <td>29</td>
+      <td>M10S</td>
+      <td>13E</td>
+      <td>22</td>
       <td>CENTRAL VALLEY</td>
       <td>M</td>
-      <td>04S</td>
-      <td>M04S27E29</td>
-      <td>M04S27E</td>
-      <td>10M04S27E29</td>
+      <td>10S</td>
+      <td>M10S13E22</td>
+      <td>M10S13E</td>
+      <td>10M10S13E22</td>
       <td>5</td>
-      <td>10M04S27E</td>
+      <td>10M10S13E</td>
       <td>10</td>
       <td>Fresno</td>
       <td>Fresno County</td>
       <td>None</td>
       <td>None</td>
+      <td>2021.0</td>
+      <td>27-AUG-21</td>
+      <td>FRESNO</td>
+      <td>10M10S13E22</td>
+      <td>COTTON, GENERAL</td>
+      <td>AMIGO</td>
+      <td>20.1136</td>
+      <td>None</td>
       <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>POLYGON ((85826.745 -48097.511, 87004.884 -480...</td>
-      <td>NaN</td>
+      <td>14.0</td>
+      <td>A</td>
+      <td>G</td>
+      <td>0.021875</td>
+      <td>-108134.36885</td>
+      <td>-48198.642574</td>
+      <td>POLYGON ((-48165.756 -107898.621, -48107.770 -...</td>
+      <td>POINT (-48148.384 -108218.520)</td>
     </tr>
     <tr>
-      <th>3</th>
+      <th>1289</th>
       <td>10</td>
-      <td>M04S</td>
-      <td>27E</td>
-      <td>30</td>
+      <td>M10S</td>
+      <td>13E</td>
+      <td>22</td>
       <td>CENTRAL VALLEY</td>
       <td>M</td>
-      <td>04S</td>
-      <td>M04S27E30</td>
-      <td>M04S27E</td>
-      <td>10M04S27E30</td>
+      <td>10S</td>
+      <td>M10S13E22</td>
+      <td>M10S13E</td>
+      <td>10M10S13E22</td>
       <td>5</td>
-      <td>10M04S27E</td>
+      <td>10M10S13E</td>
       <td>10</td>
       <td>Fresno</td>
       <td>Fresno County</td>
       <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>POLYGON ((85492.147 -48100.514, 85702.950 -480...</td>
-      <td>NaN</td>
+      <td>NO</td>
+      <td>2021.0</td>
+      <td>27-AUG-21</td>
+      <td>FRESNO</td>
+      <td>10M10S13E22</td>
+      <td>COTTON, GENERAL</td>
+      <td>ASSAIL 70WP INSECTICIDE</td>
+      <td>1.9400</td>
+      <td>ACETAMIPRID</td>
+      <td>1.358000</td>
+      <td>14.0</td>
+      <td>A</td>
+      <td>G</td>
+      <td>0.021875</td>
+      <td>-108134.36885</td>
+      <td>-48198.642574</td>
+      <td>POLYGON ((-48165.756 -107898.621, -48107.770 -...</td>
+      <td>POINT (-48148.384 -108218.520)</td>
     </tr>
     <tr>
-      <th>4</th>
+      <th>1290</th>
       <td>10</td>
-      <td>M04S</td>
-      <td>27E</td>
-      <td>28</td>
-      <td>LAHONTAN</td>
+      <td>M10S</td>
+      <td>13E</td>
+      <td>22</td>
+      <td>CENTRAL VALLEY</td>
       <td>M</td>
-      <td>04S</td>
-      <td>M04S27E28</td>
-      <td>M04S27E</td>
-      <td>10M04S27E28</td>
-      <td>6</td>
-      <td>10M04S27E</td>
+      <td>10S</td>
+      <td>M10S13E22</td>
+      <td>M10S13E</td>
+      <td>10M10S13E22</td>
+      <td>5</td>
+      <td>10M10S13E</td>
       <td>10</td>
       <td>Fresno</td>
       <td>Fresno County</td>
       <td>None</td>
+      <td>NO</td>
+      <td>2021.0</td>
+      <td>15-JUN-21</td>
+      <td>FRESNO</td>
+      <td>10M10S13E22</td>
+      <td>COTTON, GENERAL</td>
+      <td>BELAY INSECTICIDE</td>
+      <td>5.0919</td>
+      <td>CLOTHIANIDIN</td>
+      <td>1.171137</td>
+      <td>14.0</td>
+      <td>A</td>
+      <td>G</td>
+      <td>0.021875</td>
+      <td>-108134.36885</td>
+      <td>-48198.642574</td>
+      <td>POLYGON ((-48165.756 -107898.621, -48107.770 -...</td>
+      <td>POINT (-48148.384 -108218.520)</td>
+    </tr>
+    <tr>
+      <th>1291</th>
+      <td>10</td>
+      <td>M10S</td>
+      <td>13E</td>
+      <td>22</td>
+      <td>CENTRAL VALLEY</td>
+      <td>M</td>
+      <td>10S</td>
+      <td>M10S13E22</td>
+      <td>M10S13E</td>
+      <td>10M10S13E22</td>
+      <td>5</td>
+      <td>10M10S13E</td>
+      <td>10</td>
+      <td>Fresno</td>
+      <td>Fresno County</td>
       <td>None</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>POLYGON ((89043.287 -49493.042, 89047.876 -496...</td>
-      <td>NaN</td>
+      <td>NO</td>
+      <td>2021.0</td>
+      <td>16-SEP-21</td>
+      <td>FRESNO</td>
+      <td>10M10S13E22</td>
+      <td>COTTON, GENERAL</td>
+      <td>BOLL BUSTER</td>
+      <td>38.0006</td>
+      <td>ETHEPHON</td>
+      <td>21.052332</td>
+      <td>14.0</td>
+      <td>A</td>
+      <td>G</td>
+      <td>0.021875</td>
+      <td>-108134.36885</td>
+      <td>-48198.642574</td>
+      <td>POLYGON ((-48165.756 -107898.621, -48107.770 -...</td>
+      <td>POINT (-48148.384 -108218.520)</td>
     </tr>
   </tbody>
 </table>
 </div>
-
-Then I found the Centroid points, and layered them with the location of public and private schools in fresno to show the proximity. 
 
 
 ![png](output_32_0.png)
