@@ -1,4 +1,4 @@
-Environmental Justice at the Urban-Agricultural Interface: Pesticide Use and Cumulative Burdens in Fresno, CA
+### Environmental Justice at the Urban-Agricultural Interface: Pesticide Use and Cumulative Burdens in Fresno, CA
 
 Fresno is one of the top Agricultural producing counties in the U.S. and is a major part of the California Central Valley agricultural economy, which produces ¼ of the country’s food. The valley’s topography coupled with land use and air quality policy, distributional inequities, and discriminatory siting have, over time, led to the exposure of low-income families and small BIPOC farmers to pesticide drift and other cumulative air quality and environmental burdens. 
 
